@@ -1,0 +1,50 @@
+﻿@model UsuarioModel
+
+
+
+@{
+    Layout = "../Shared/_LayoutLogin.cshtml";
+
+
+}
+
+
+<div class="container" style="background-color:rgba(233, 229, 229, 0.87); border-radius:20px;padding:20px; width:300px">
+    @{
+        if (TempData["ValidaMenssagem"] != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Atenção!</strong> @TempData["ValidaMenssagem"]
+            </div>
+
+        }
+
+    }
+
+<form asp-controller="Usuario" asp-action="ValidarLogin">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" placeholder="Enter email" asp-for="Email">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Senha:</label>
+        <input type="password" class="form-control" placeholder="Enter password" asp-for="Senha">
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" type="checkbox"> Lembrar me
+        </label>
+    </div>
+
+    <button type="button" class="btn btn-link" style="margin-left:100px" onclick="Registrar()">Registrar</button>
+    <button type="submit" class="btn btn-primary">Entrar</button>
+</form>
+</div>
+
+<script>
+    function Registrar() {
+
+        window.location.href ="../Registrar"
+    }
+
+</script>

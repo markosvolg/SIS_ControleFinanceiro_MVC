@@ -1,0 +1,50 @@
+﻿@model UsuarioModel
+
+
+
+@{
+    Layout = "../Shared/_LayoutLogin.cshtml";
+
+
+}
+
+<div class="container" style="background-color:rgba(233, 229, 229, 0.87); border-radius:20px;padding:20px; width:500px">
+    
+    <h3 class="text-center">Registrar Usuario</h3>
+
+    <form asp-controller="Usuario" asp-action="Registrar">
+
+
+        <div class="form-group">
+            <label for="email">Nome:</label>
+            <input type="text" class="form-control" placeholder="Enter Nome" asp-for="Nome">
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" placeholder="Enter email" asp-for="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Senha:</label>
+            <input type="password" class="form-control" placeholder="Enter password" asp-for="Senha">
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="data_nascimento">Data Nascimento:</label>
+            <input type="date" class="form-control" placeholder="Enter Data" asp-for="Data_Nascimento">
+            <span asp-validation-for="Data_Nascimento" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-success">Registrar</button>
+        <button type="button" class="btn btn-block btn-primary" onclick="Login()">Login</button>
+    </form>
+</div>
+
+<script>
+    function Login() {
+        window.location.href ="../Usuario/Login"
+    }
+
+</script>

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Contas</h3>
+
+
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Saldo</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    @{
+        foreach (var item in (List<ContaModel>)ViewBag.ListaConta)
+        {
+            <tbody>
+                <tr>
+                    <td style="width:10%">@item.Id</td>
+                    <td style="width:50%">@item.Nome</td>
+                    <td style="width:20%">@item.Saldo</td>
+                    <td style="width:10%" class="text-center"><button type="submit" style="color:white; border-color:transparent;background-color:transparent">
+                        <i class="far fa-edit" style="color:royalblue; height:20px;width:20px"></i></button>
+                    </td>
+                    <td class="text-center"><button type="submit" style="color:white; border-color:transparent; border-style:solid;background-color:transparent" onclick="Excluir(@item.Id)" >
+                        <i class="fas fa-times" style="color:red; height:20px;width:20px"></i></button>
+                    </td>
+                </tr>
+
+            </tbody>
+        }
+    }
+</table>
+<button type="button" class="btn btn-primary btn-block" onclick="criarConta()">Criar Conta</button>
+
+<script>
+
+    function criarConta() {
+
+
+        window.location.href = "../Conta/CriarConta";
+
+    }
+
+    function Excluir(id_conta) {
+
+        window.location.href = "../Conta/ExcluirConta/" + id_conta;
+
+    }
+
+
+</script>

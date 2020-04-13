@@ -1,0 +1,23 @@
+﻿@model ContaModel
+
+@{
+    ViewData["Title"] = "CriarConta";
+}
+
+<h2>Criar Conta</h2>
+
+<form asp-controller="Conta" asp-action="CriarConta">
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" class="form-control" placeholder="Digite uma Conta" asp-for="Nome">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Saldo:</label>
+        <input type="number" class="form-control" placeholder="Digite um Valor" asp-for="Saldo">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+   
+    <button type="submit" class="btn btn-success btn-block">Registrar</button>
+</form>
+

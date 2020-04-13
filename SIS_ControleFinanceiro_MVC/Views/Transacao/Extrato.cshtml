@@ -1,0 +1,137 @@
+﻿@model TransacaoModel
+
+@{
+    ViewData["Title"] = "Extrato";
+}
+
+<h3>Extrato</h3>
+
+
+
+<div class="container">
+    <form asp-controller="Transacao" asp-action="Extrato">
+        <div class="form-group">
+            <label>Data Transação (Inicio):</label>
+            <input type="date" asp-for="Data" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Data Transação (Final):</label>
+            <input type="date" asp-for="DataFinal" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Tipo Transação</label>
+            <div class="radio"><label><input type="radio" asp-for="Tipo" value="A" checked />Receitas e Despesas</label></div>
+            <div class="radio"><label><input type="radio" asp-for="Tipo" value="R" />Receitas</label></div>
+            <div class="radio"><label><input type="radio" asp-for="Tipo" value="D" />Despesas</label></div>
+        </div>
+        <div class="form-group">
+            <label>Conta:</label>
+            <select asp-for="Conta_Id" class="form-control">
+                @{
+                    foreach (var item in (List<ContaModel>)ViewBag.ListaContas)
+                    {
+                        <option value="@item.Id.ToString()"> @item.Nome.ToString()</option>
+
+                    }
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-success">Pesquisar</button>
+
+    </form>
+</div>
+</br>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th>Historico</th>
+            <th>Conta</th>
+
+            <th>Plano Conta</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    @{
+        var TotalReceita = 0.0;
+        var TotalDespesas = 0.0;
+        var Saldo = 0.0;
+
+
+        foreach (var item in (List<TransacaoModel>)ViewBag.ListaTransacao)
+        {
+            <tbody>
+                <tr>
+                    <td style="width:10%">@item.Id</td>
+                    <td style="width:10%">@DateTime.Parse(@item.Data.ToString()).ToString("dd/MM/yyyy")</td>
+                    <td style="width:10%">@item.Tipo.Replace("R", "Receita").Replace("D", "Despesa")</td>
+                    <td style="width:10%">R$ @item.Valor</td>
+                    <td style="width:30%">@item.Descricao</td>
+                    <td style="width:10%">@item.NomeConta</td>
+                    <td style="width:20%">@item.DescricaoPlanoConta</td>
+
+
+                    <td style="width:10%" class="text-center">
+                        <button type="submit" style="color:white; border-color:transparent;background-color:transparent" onclick="Editar(@item.Id)">
+                            <i class="far fa-edit" style="color:royalblue; height:20px;width:20px"></i>
+                        </button>
+                    </td>
+                    <td class="text-center">
+                        <button type="submit" style="color:white; border-color:transparent; border-style:solid;background-color:transparent" onclick="Excluir(@item.Id)">
+                            <i class="fas fa-times" style="color:red; height:20px;width:20px"></i>
+                        </button>
+                    </td>
+                </tr>
+                @{
+                    if (item.Tipo == "D")
+                    {
+                        TotalDespesas += double.Parse(item.Valor.ToString());
+                    }
+                    else
+                    {
+                        TotalReceita += double.Parse(item.Valor.ToString());
+                    }
+
+                }
+
+            </tbody>
+        }
+
+        Saldo = TotalReceita - TotalDespesas;
+    }
+</table>
+
+
+<strong>Saldo:</strong> R$ @Saldo
+
+<script>
+
+    function criarTransacao() {
+
+
+        window.location.href = "../Transacao/Registrar";
+
+    }
+
+    function Excluir(id_) {
+
+        window.location.href = "../Transacao/ExcluirTransacao/" + id_;
+
+    }
+
+    function Editar(id_) {
+
+        window.location.href = "../Transacao/Registrar/" + id_;
+
+    }
+
+</script>
